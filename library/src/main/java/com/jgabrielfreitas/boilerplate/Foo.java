@@ -24,4 +24,8 @@ public class Foo {
   public void setSubTitle(String subTitle) {
     this.subTitle = subTitle;
   }
+
+  @Override public String toString() {
+    return "Foo " + "title='" + title + '\'' + "\nsubTitle='" + subTitle;
+  }
 }

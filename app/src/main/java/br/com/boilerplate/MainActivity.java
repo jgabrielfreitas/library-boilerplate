@@ -6,6 +6,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
+import com.jgabrielfreitas.boilerplate.Boilerplate;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,9 +19,12 @@ public class MainActivity extends AppCompatActivity {
         @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
           switch (item.getItemId()) {
             case R.id.navigation_home:
-              mTextMessage.setText(R.string.title_home);
+              mTextMessage.setText(Boilerplate.returnHelloWorld());
               return true;
             case R.id.navigation_dashboard:
+
+              //Boilerplate.
+
               mTextMessage.setText(R.string.title_dashboard);
               return true;
             case R.id.navigation_notifications:

@@ -1,4 +1,8 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: "com.jfrog.bintray"
+
+version = "1.0.0"
 
 android {
   compileSdkVersion 25
@@ -27,4 +31,80 @@ dependencies {
   })
   compile 'com.android.support:appcompat-v7:25.3.0'
   testCompile 'junit:junit:4.12'
+}
+
+def siteUrl = 'https://github.com/jgabrielfreitas/library-boilerplate'
+def gitUrl  = 'https://github.com/jgabrielfreitas/library-boilerplate.git'
+group       = "com.jgabrielfreitas"
+install {
+  repositories.mavenInstaller {
+    // para gerar o arquivo POM.xml
+    pom {
+      project {
+        packaging 'aar'
+
+        // Add your description here
+        name 'com.jgabrielfreitas:boilerplate'
+        description = 'boilerplate library'
+        url siteUrl
+
+        licenses {
+          license {
+            name 'MIT'
+            url 'https://opensource.org/licenses/MIT'
+          }
+        }
+        developers {
+          developer {
+            id 'JGabrielFreitas'
+            name 'João de Freitas'
+            email 'jgabrielafreitas@gmail.com'
+          }
+        }
+        scm {
+          connection gitUrl
+          developerConnection gitUrl
+          url siteUrl
+        }
+      }
+    }
+  }
+}
+
+task sourcesJar(type: Jar) {
+  from android.sourceSets.main.java.srcDirs
+  classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+  source = android.sourceSets.main.java.srcDirs
+  classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+  classifier = 'javadoc'
+  from javadoc.destinationDir
+}
+artifacts {
+  archives javadocJar
+  archives sourcesJar
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+// https://github.com/bintray/gradle-bintray-plugin
+bintray {
+  user = properties.getProperty("bintray.user")
+  key = properties.getProperty("bintray.apikey")
+
+  configurations = ['archives']
+  pkg {
+    repo = "maven"
+    name = "com.jgabrielfreitas:boilerplate"
+    websiteUrl = siteUrl
+    vcsUrl     = gitUrl
+    licenses   = ['MIT']
+    publish    = true
+  }
 }
