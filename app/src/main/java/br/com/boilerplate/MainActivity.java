@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 import com.jgabrielfreitas.boilerplate.Boilerplate;
+import com.jgabrielfreitas.boilerplate.Foo;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,12 +33,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return true;
       case R.id.navigation_dashboard:
 
-        List<SomeoneFoo> someoneFoos = new ArrayList<>();
+        List<Foo> someoneFoos = new ArrayList<>();
         for (int i = 0; i < 10; i++)
-            someoneFoos.add(new SomeoneFoo(format("Foo %02d", i + 1), format("subtitle: %02d\n", i + 1)));
+          someoneFoos.add(new SomeoneFoo(format("Foo %02d", i + 1), format("subtitle: %02d\n", i + 1)));
 
-
-        mTextMessage.setText(R.string.title_dashboard);
+        Boilerplate.setFooList(someoneFoos);
+        mTextMessage.setText(Boilerplate.getFooList().toString());
         return true;
       case R.id.navigation_notifications:
         mTextMessage.setText(R.string.title_notifications);
