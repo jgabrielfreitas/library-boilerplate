@@ -9,15 +9,15 @@ import java.util.List;
 
 public class Boilerplate {
 
-  public List<Foo> getFooList() {
+  public static List<Foo> getFooList() {
     return fooList;
   }
 
-  public void setFooList(List<Foo> fooList) {
-    this.fooList = fooList;
+  public static void setFooList(List<Foo> fooList) {
+    Boilerplate.fooList = fooList;
   }
 
-  private List<Foo> fooList = new ArrayList<>();
+  private static List<Foo> fooList = new ArrayList<>();
 
   public static String returnHelloWorld() {
     return "Hello World - boilerplate library";
